@@ -37,6 +37,8 @@ namespace SignalR.Console.Client
                 System.Console.WriteLine(ex.ToString());
             }
 
+
+            // Post, which will result in a message being broadcast
             using (HttpClient httpClient = new HttpClient())
             {
                 httpClient.BaseAddress = _signalRUri;
@@ -51,6 +53,15 @@ namespace SignalR.Console.Client
             }
 
 
+            // Send a message to the hub
+            try
+            {
+                await connection.InvokeAsync("SendMessage", "MessageSent from Client", "From Client");
+            }
+            catch
+            {
+
+            }
         }
 
 
